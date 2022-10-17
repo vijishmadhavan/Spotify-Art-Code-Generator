@@ -1,0 +1,11 @@
+colorthief
+opencv-python 
+spotipy 
+tqdm 
+dash 
+gunicorn
+coverage 
+pyparsing
+pyproject-flake8
+mypy 
+pytest 

@@ -16,7 +16,6 @@ from urllib.request import urlopen
 
 def _rgb_to_hex(rgb: tuple[int, int, int]) -> str:
     """Converts rgb value to hex.
-
     :param rgb: rgb value as triple
     :returns: hex string
     """
@@ -25,7 +24,6 @@ def _rgb_to_hex(rgb: tuple[int, int, int]) -> str:
 
 def get_art_with_code(uri: str, sp: spotipy.Spotify) -> Image:
     """ Generates Spotify Art + Code for a given URI.
-
     :param uri: Spotify URI
     :param sp: a spotipy instance
     :returns: album / track / artist art with Spotify Code
@@ -85,7 +83,6 @@ def get_art_with_code(uri: str, sp: spotipy.Spotify) -> Image:
 
 def save_art_with_code(output_folder: str, uris: list[str], sp: spotipy.Spotify) -> None:
     """Generates and saves Spotify Art + Code for all URIs to output_folder.
-
     :param output_folder: path where results will be saved to
     :param album_uris: list of spotify URIs
     :param sp: spotipy instance
@@ -98,7 +95,6 @@ def save_art_with_code(output_folder: str, uris: list[str], sp: spotipy.Spotify)
 
 def uri_from_query(search_term: str, search_type: str, sp: spotipy.Spotify) -> Opt:
     """Queries Spotify using search_term for an artist, album or track URI.
-
     :param search_term: user input to get an album, track or artist
     :param search_type: either "album" "track" or "artist"
     :param sp: spotipy.Spotify instance
@@ -123,7 +119,6 @@ def uri_from_query(search_term: str, search_type: str, sp: spotipy.Spotify) -> O
 
 def uri_from_url(search_url: str) -> Opt:
     """Returns Spotify URI for an artist / album / track Spotify Share URL.
-
     :param search_url: link from Spotify Share
     :returns: uri from match or None
     """

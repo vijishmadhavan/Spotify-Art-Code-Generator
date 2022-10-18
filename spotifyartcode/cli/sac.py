@@ -16,6 +16,7 @@ from urllib.request import urlopen
 
 def _rgb_to_hex(rgb: tuple[int, int, int]) -> str:
     """Converts rgb value to hex.
+
     :param rgb: rgb value as triple
     :returns: hex string
     """
@@ -24,6 +25,7 @@ def _rgb_to_hex(rgb: tuple[int, int, int]) -> str:
 
 def get_art_with_code(uri: str, sp: spotipy.Spotify) -> Image:
     """ Generates Spotify Art + Code for a given URI.
+
     :param uri: Spotify URI
     :param sp: a spotipy instance
     :returns: album / track / artist art with Spotify Code
@@ -57,32 +59,40 @@ def get_art_with_code(uri: str, sp: spotipy.Spotify) -> Image:
         dominant_color_rgb = cf.get_color(quality=1)
 
     dominant_color_hex = _rgb_to_hex(dominant_color_rgb)
-    code_color = (
-        "black"
-        if (dominant_color_rgb[0] + dominant_color_rgb[1] + dominant_color_rgb[2])
-        / 3
-        > 127
-        else "white"
-    )
+    #code_color = (
+        #"black"
+        #if (dominant_color_rgb[0] + dominant_color_rgb[1] + dominant_color_rgb[2])
+        #/ 3
+        #> 127
+        #else "white"
+    #)
     uri_call = uri.replace(":", "%3A")
 
     # get spotify code
     url = (
         "https://www.spotifycodes.com/downloadCode.php?uri=png%2F"
-        + f"{dominant_color_hex}%2F{code_color}%2F{cover_size}%2F{uri_call}"
+        + f"{dominant_color_hex}%2F{cover_size}%2F{uri_call}"
     )
     album_code = Image.open(urlopen(url))
+    music = Image.open("spotifyartcode\cli\image.png")
+
 
     # merge images
     final_height = album_code.size[1] + cover_size
     im = Image.new(mode="RGB", size=(cover_size, final_height))
+
     im.paste(cover_image, (0, 0))
     im.paste(album_code, (0, cover_size))
+
+    im.resize((1352, 1576))
+    im = music.paste(im,(225,116,1577,1692))
+
     return im
 
 
 def save_art_with_code(output_folder: str, uris: list[str], sp: spotipy.Spotify) -> None:
     """Generates and saves Spotify Art + Code for all URIs to output_folder.
+
     :param output_folder: path where results will be saved to
     :param album_uris: list of spotify URIs
     :param sp: spotipy instance
@@ -95,6 +105,7 @@ def save_art_with_code(output_folder: str, uris: list[str], sp: spotipy.Spotify)
 
 def uri_from_query(search_term: str, search_type: str, sp: spotipy.Spotify) -> Opt:
     """Queries Spotify using search_term for an artist, album or track URI.
+
     :param search_term: user input to get an album, track or artist
     :param search_type: either "album" "track" or "artist"
     :param sp: spotipy.Spotify instance
@@ -119,6 +130,7 @@ def uri_from_query(search_term: str, search_type: str, sp: spotipy.Spotify) -> O
 
 def uri_from_url(search_url: str) -> Opt:
     """Returns Spotify URI for an artist / album / track Spotify Share URL.
+
     :param search_url: link from Spotify Share
     :returns: uri from match or None
     """

@@ -74,7 +74,7 @@ def get_art_with_code(uri: str, sp: spotipy.Spotify) -> Image:
         + f"{dominant_color_hex}%2F{cover_size}%2F{uri_call}"
     )
     album_code = Image.open(urlopen(url))
-    music = Image.open("spotifyartcode\cli\image.png")
+    music = Image.open("spotifyartcode/cli/image.png")
 
 
     # merge images
